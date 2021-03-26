@@ -80,7 +80,7 @@
             @endif
 
             <div class="content">
-               <h1>To sem ideias pra tela principal</h1>
+               <h1>To sem ideias para a tela principal</h1>
             </div>
         </div>
     </body>
