@@ -57,14 +57,15 @@ class MaintenanceController extends Controller
         if($request->ajax())
         {
             $head = Maintenance::find($request->id);
-            $head->delete();
-
+            if($head->user_id == Auth::id()){
+                $head->delete();
+            }
         }
     }
 
     public function get_all_maintenance()
     {
-        $all = Maintenance::all();
+        $all = Maintenance::where('user_id','=', Auth::id())->get();
         foreach($all as $key => $value){
             $all[$key]->identificador = DB::table('cars')->where('id', '=', $value->id)->get()->first()->identificador;
             $all[$key]['maintenance_date'] = \Carbon\Carbon::parse($value->maintenance_date)->timezone('America/Sao_Paulo')->format('d/m/Y');
@@ -82,6 +83,9 @@ class MaintenanceController extends Controller
     }
 
     public function get_info_car($id){
-        return Cars::find($id);
+        $head = Cars::find($id);
+        if($head->user_id == Auth::id()){
+            return $head;
+        }
     } 
 }

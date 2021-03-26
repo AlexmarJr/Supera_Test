@@ -57,17 +57,23 @@ class CarsController extends Controller
         if($request->ajax())
         {
             $head = Cars::find($request->id);
-            $head->delete();
+            if($head->user_id == Auth::id()){
+                $head->delete();
+            }
 
         }
     }
 
     public function get_all_cars()
     {
-        return Cars::all();
+        return Cars::where('user_id','=', Auth::id())->get();
     }
 
     public function get_car($id){
-        return Cars::find($id);
+        $head = Cars::find($id);
+        if($head->user_id == Auth::id()){
+            return $head;
+        }
+        
     }
 }

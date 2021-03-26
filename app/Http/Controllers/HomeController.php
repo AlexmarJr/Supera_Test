@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\maintenance;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -26,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $all_main = DB::Table('maintenances')->whereBetween('maintenance_date', [Carbon::now(), Carbon::now()->addDays(7)])->get()
+        $all_main = DB::Table('maintenances')->where('user_id','=', Auth::id())->whereBetween('maintenance_date', [Carbon::now(), Carbon::now()->addDays(7)])->get()
         ->sortBy('maintenance_date');
         
         foreach($all_main as $key => $value){
