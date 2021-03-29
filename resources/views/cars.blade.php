@@ -84,15 +84,6 @@
   
 
 <script>
-    $(document).ready(function() {
-        $('#datatable').DataTable({
-            responsive: true,
-            paging: false,
-            searching: false,
-            info: false
-        });
-    } );
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -127,7 +118,7 @@
                     $('#datatable').DataTable({
                         responsive: true,
                         paging: false,
-                        searching: false,
+                        searching: true,
                         info: false
                     });
                 
